@@ -65,17 +65,24 @@ p10k configure
 
 ## 4. Configuración del Prompt
 
-Para mostrar usuario y directorio en el prompt, editar `~/.p10k.zsh`:
+Para mostrar el nombre de usuario en cada línea de la terminal, editar `~/.p10k.zsh`:
 
 ```bash
 nano ~/.p10k.zsh
 ```
 
-Buscar `LEFT_PROMPT_ELEMENTS` y dejarlo así:
+Buscar con `Ctrl + W`:
+```
+LEFT_PROMPT_ELEMENTS
+```
+
+Reemplazar por:
 
 ```bash
 typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs)
 ```
+
+> Esta configuración hace que se muestre el usuario, directorio actual y rama de Git en cada línea.
 
 Aplicar cambios:
 ```bash
@@ -84,7 +91,7 @@ source ~/.zshrc
 
 El prompt quedará así:
 ```
-mauro-dev ~/Documents/Docker_course_2026  main ❯
+mauro-dev  ~ ▓▒░                                     ░▒▓ INT ✘  at 19:17:22
 ```
 
 ---
@@ -213,6 +220,101 @@ ls ~/.oh-my-zsh/custom/plugins/
 ```bash
 p10k configure
 ```
+
+---
+
+## 10. Cómo agregar más plugins
+
+### Paso 1 — Buscar el plugin
+Busca plugins en:
+- [awesome-zsh-plugins](https://github.com/unixorn/awesome-zsh-plugins)
+- [Oh My Zsh plugins](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins)
+
+---
+
+### Paso 2 — Instalar el plugin
+
+#### Opción A — Plugins incluidos en Oh My Zsh
+No necesitas instalar nada, solo activarlos. Lista completa en:
+```bash
+ls ~/.oh-my-zsh/plugins/
+```
+
+#### Opción B — Plugins externos (clonar con git)
+```bash
+git clone https://github.com/usuario/nombre-plugin \
+  ~/.oh-my-zsh/custom/plugins/nombre-plugin
+```
+
+---
+
+### Paso 3 — Activar el plugin en `~/.zshrc`
+
+```bash
+nano ~/.zshrc
+```
+
+Buscar la línea `plugins=(` y agregar el nombre del plugin:
+
+```bash
+plugins=(
+  git
+  docker
+  # ... plugins existentes ...
+  nombre-plugin  # ← agregar aquí
+)
+```
+
+---
+
+### Paso 4 — Aplicar cambios
+
+```bash
+source ~/.zshrc
+```
+
+---
+
+### Paso 5 — Verificar que funciona
+
+```bash
+# Ver todos los plugins instalados
+ls ~/.oh-my-zsh/custom/plugins/
+
+# Ver plugins activos
+grep "plugins=" ~/.zshrc
+```
+
+---
+
+### Ejemplo completo — Agregar un plugin nuevo
+
+```bash
+# 1. Clonar el plugin
+git clone https://github.com/zsh-users/zsh-history-substring-search \
+  ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search
+
+# 2. Activarlo en .zshrc
+nano ~/.zshrc
+# Agregar 'zsh-history-substring-search' en plugins=(...)
+
+# 3. Aplicar
+source ~/.zshrc
+```
+
+---
+
+### Plugins recomendados para agregar en el futuro
+
+| Plugin | Repositorio | Función |
+|---|---|---|
+| `zsh-history-substring-search` | zsh-users | Busca en historial con flechas |
+| `zsh-completions` | zsh-users | Más autocompletados |
+| `alias-finder` | Oh My Zsh | Encuentra alias de comandos |
+| `web-search` | Oh My Zsh | Busca en Google desde terminal |
+| `jsontools` | Oh My Zsh | Formatea JSON en terminal |
+
+Para instalar cualquiera de los de **Oh My Zsh** solo agrégalo en `plugins=()` sin clonar nada.
 
 ---
 
